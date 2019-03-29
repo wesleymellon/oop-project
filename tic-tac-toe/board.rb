@@ -1,8 +1,9 @@
 class Board
-  attr_accessor :grid
+  attr_accessor :grid, :is_board_full
 
   def initialize
-    @grid = [['A', 'O', 'C'], ['D', 'O', 'F'], ['G', 'O', 'I']]
+    @grid = [['-', '-', '-'], ['-', '-', '-'], ['-', '-', '-']]
+    @is_board_full = false
   end
 
   def display
@@ -23,6 +24,22 @@ class Board
     puts "-----------"
     puts "#{@grid[2][0]} | #{@grid[2][1]} | #{@grid[2][2]}"
     puts
+  end
+
+  def change_piece(row, col, marker)
+    @grid[row][col] = marker
+  end
+
+  def check_board_full
+    unless @grid.any? do |row|
+        row.any? do |e|
+          e == "-"
+        end
+      end
+      @is_board_full = true
+    end
+
+    @is_board_full
   end
 
 end
