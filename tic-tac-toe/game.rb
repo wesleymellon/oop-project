@@ -108,6 +108,8 @@ class Game
     #   end
     # end
 
+    puts "horz win running"
+
     @board.grid.each do |row|
       if horz_win_helper(@player1.marker, row) || horz_win_helper(@player2.marker, row)
         @is_won = true
@@ -119,9 +121,8 @@ class Game
   end
 
   def horz_win_helper(marker, row)
-    if row.all? do |e|
-        e == marker
-      end
+    row.all? do |e|
+      e == marker
     end
   end
 
