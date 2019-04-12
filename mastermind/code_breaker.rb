@@ -21,6 +21,7 @@ class CodeBreaker
   end
 
   def guess_code(input_guess)
+    puts "I'm running!"
     if is_valid_guess?(input_guess)
       @guess_count += 1
       @current_guess = input_guess
