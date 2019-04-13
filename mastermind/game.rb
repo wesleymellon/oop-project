@@ -61,20 +61,24 @@ class Game
       end
 
     else
-      puts "We got a breaker in the house!"
-      
       @code_maker.comp_set_code
-      @code_breaker.user_prompt("guess_code_prompt")
-      user_guess = gets.chomp.split(" ")
-      @code_maker.comp_review_code(user_guess)
 
+      while @code_breaker.guess_count < 12 && !@code_maker.code_cracked?
+        @code_breaker.user_prompt("guess_count")
+        @code_breaker.user_prompt("guess_code_prompt")
+        user_guess = gets.chomp.split(" ")
+        @code_breaker.guess_code(user_guess)
+        @code_maker.comp_review_code(user_guess)
+        @code_maker.user_prompt("comp_review_perfect_guesses")
+        @code_maker.user_prompt("comp_review_color_guesses")
+      end
 
-
-
-
-
-
-
+      if @code_maker.code_cracked?
+        puts "\nNice One! You cracked the Computer's Code!"
+      else
+        puts "Sorry! Looks like the Machine's Code was too powerful!"
+        puts "The Computer's Code was #{@code_maker.code}"
+      end
     end
   end
 

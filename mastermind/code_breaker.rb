@@ -11,23 +11,22 @@ class CodeBreaker
   def user_prompt(subject)
     case subject
       when "guess_code_prompt"
-        puts "What's your guess? Please choose four pieces and separate them with spaces"
+        puts "\nWhat's your guess? Please choose four pieces and separate them with spaces\n"
         puts "red blue green yellow pink orange black white"
       when "guess_count"
-        puts "This is Guess Number #{@guess_count}"
+        puts "\nGuess Number #{@guess_count}"
       else
         puts "This shouldn't run!"
     end
   end
 
   def guess_code(input_guess)
-    puts "I'm running!"
     if is_valid_guess?(input_guess)
       @guess_count += 1
       @current_guess = input_guess
     else
       puts "\nThat's not a valid guess! Please try again.\n\n"
-      user_prompt(guess_code_prompt)
+      user_prompt("guess_code_prompt")
       input_guess = gets.chomp.split(" ")
       guess_code(input_guess)
     end
@@ -36,9 +35,12 @@ class CodeBreaker
   end
 
   def is_valid_guess?(input_guess)
-    input_guess.all? do |color|
+    right_length = input_guess.length == 4
+    right_color = input_guess.all? do |color|
       @possible_colors.include?(color)
     end
+
+    right_length && right_color
   end
 
   def comp_guess(perfect_guess, correct_color_guess)
@@ -48,7 +50,7 @@ class CodeBreaker
   end
 
   def user_guess(current_guess)
-    user_prompt(guess_code_prompt)
+    user_prompt("guess_code_prompt")
     current_guess = gets.chomp.split(" ")
     guess_code(current_guess)
   end

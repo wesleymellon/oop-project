@@ -17,11 +17,14 @@ class CodeMaker
       when "review_intro"
         puts "Please review the Computer's guess!"
         puts "The Computer's guess is as follows \n"
-      when "review_perfect_guesses"
+      when "user_review_perfect_guesses"
         puts "\nHow many guesses were exactly right?"
-      when "review_color_guesses"
+      when "user_review_color_guesses"
         puts "\nHow many guesses were the correct color, but not the right position?"
-
+      when "comp_review_perfect_guesses"
+        puts "\nNumber of Perfect Guesses: #{@perfect_guess_number}"
+      when "comp_review_color_guesses"
+        puts "Number of Color Guesses: #{@color_guess_number}"
       else
         puts "This shouldn't run!"
     end
@@ -43,8 +46,7 @@ class CodeMaker
     4.times do 
       @code.push(@possible_colors.sample)
     end
-    #DELETE THIS LATER
-    @code = ["black", "blue", "pink", "black"]
+
     @code
   end
 
@@ -63,9 +65,9 @@ class CodeMaker
   end
 
   def user_review_code
-    user_prompt("review_perfect_guesses")
+    user_prompt("user_review_perfect_guesses")
     @correct_perfect_guess = gets.chomp.to_i
-    user_prompt("review_color_guesses")
+    user_prompt("user_review_color_guesses")
     @color_guess_number = gets.chomp.to_i
     unless is_valid_review?(@correct_perfect_guess)
       puts "That's not a valid review!"
@@ -76,42 +78,9 @@ class CodeMaker
   end
 
   def comp_review_code(user_guess)
-    user_guess.each do |guess|
-
-    end
-
-  end
-
-  # Integrate Code
-
-  def comp_find_perfect_matches(guess)
-    @perfect_guess_number = 0
-    guess.each_with_index do |color, i|
-      if color == code[i]
-        @perfect_guess_number += 1
-      end
-    end
-  end
-
-  def comp_find_color_matches(code, guess)
-    sudo_count = 0
-    dummy_code = @code_maker.code
-    guess.each do |color|
-      if code.include?(color)
-        code.delete_at(code.index(color))
-        sudo_count += 1
-      end
-    end
-
-    @color_guess_number = sudo_count - @perfect_guess_number
-  end
-
-  #New Code Below
-
-  def comp_review_code(user_guess)
     @perfect_guess_number = 0
     @color_guess_number = 0
-    temp_code = @code
+    temp_code = @code.clone
     # print @code
     # puts
     user_guess.each_with_index do |guess, i|
@@ -132,19 +101,19 @@ class CodeMaker
 
     user_guess.each_with_index do |guess, i|
       # puts "guess == temp_code[i] #{guess == temp_code[i]}"
-      if temp_code.include?(guess) && guess != temp_code[i]
+      if temp_code.include?(guess) 
         # temp_code.delete_at(temp_code.index(guess))
+        temp_code[temp_code.index(guess)] = "-"
         @color_guess_number += 1
       end
     end
 
-    # puts "@color_guess_number = #{@color_guess_number}"
-
+    @color_guess_number = @color_guess_number - @perfect_guess_number
   end
 
   # Integrate Code
 
   def code_cracked?
-    @correct_perfect_guess == 4
+    @perfect_guess_number == 4
   end
 end
