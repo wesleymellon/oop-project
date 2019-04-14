@@ -65,11 +65,6 @@ class Game
   end
 
   def add_piece_to_board(row, col)
-    # if is_player1_turn 
-    #   @board.grid[row][col] = "X"
-    # else
-    #   @board.grid[row][col] = "O"
-    # end
     if @is_player1_turn
       @board.change_piece(row, col, @player1.marker)
     else
@@ -93,23 +88,6 @@ class Game
   end
 
   def horz_win?
-    # board.grid.each do |whole_row|
-    #   if whole_row.all? do |e|
-    #       e == "X"
-    #     end
-    #     @is_won = true
-    #     break
-
-    #   elsif whole_row.all? do |e|
-    #     e == "O"
-    #     end
-    #     @is_won = true
-    #     break
-    #   end
-    # end
-
-    puts "horz win running"
-
     @board.grid.each do |row|
       if horz_win_helper(@player1.marker, row) || horz_win_helper(@player2.marker, row)
         @is_won = true
@@ -132,12 +110,6 @@ class Game
         @is_won = true
         break
       end
-      # elsif board.grid.all? do |e|
-      #     e[i] == "O"
-      #   end
-      #   @is_won = true
-      #   break
-      # end
     end
 
     @is_won
@@ -150,19 +122,6 @@ class Game
   end
 
   def diag_win?
-    # puts "diag win running"
-    # if board.grid[0][0] == "X" && board.grid[1][1] == "X" && board.grid[2][2] == "X"
-    #   @is_won = true
-    # elsif board.grid[0][2] == "X" && board.grid[1][1] == "X" && board.grid[2][0] == "X"
-    #   @is_won = true
-    # end
-
-    # if board.grid[0][0] == "O" && board.grid[1][1] == "O" && board.grid[2][2] == "O"
-    #   @is_won = true
-    # elsif board.grid[0][2] == "O" && board.grid[1][1] == "O" && board.grid[2][0] == "O"
-    #   @is_won = true
-    # end
-
     diag_win_helper(@player1.marker)
     diag_win_helper(@player2.marker)
 
@@ -170,7 +129,6 @@ class Game
   end
 
   def diag_win_helper(marker)
-    # Check for marker
     if @board.grid[0][0] == marker && @board.grid[1][1] == marker && @board.grid[2][2] == marker
       @is_won = true
     elsif @board.grid[0][2] == marker && @board.grid[1][1] == marker && @board.grid[2][0] == marker
@@ -191,7 +149,4 @@ board1 = Board.new
 
 game1 = Game.new(player1, player2, board1)
 game1.board.display
-
-puts game1.game_over?
-
 game1.play

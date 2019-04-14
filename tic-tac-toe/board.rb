@@ -8,14 +8,6 @@ class Board
 
   def display
     puts "BOARD STATE"
-    # puts "-----------\n"
-
-    # rows = []
-    # @grid.each do |row|
-    #   rows << row.join(" | ")
-    # end
-    # puts rows.join("\n----------\n")
-    # puts "\n"
     puts "-----------"
     puts
     puts "#{@grid[0][0]} | #{@grid[0][1]} | #{@grid[0][2]}"
