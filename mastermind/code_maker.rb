@@ -81,28 +81,14 @@ class CodeMaker
     @perfect_guess_number = 0
     @color_guess_number = 0
     temp_code = @code.clone
-    # print @code
-    # puts
     user_guess.each_with_index do |guess, i|
-      # puts "i = #{i}"
-      # puts "guess = #{guess}"
-      # puts "@code[i] = #{@code[i]}"
-      # puts "guess == @code[i] = #{guess == @code[i]}"
       if guess == @code[i]
         @perfect_guess_number += 1
-        # temp_code.delete_at(i)
-        # user_guess.delete_at(i)
       end
-      # print temp_code
-      # puts
     end
 
-    # puts "@perfect_guess_number = #{@perfect_guess_number}"
-
     user_guess.each_with_index do |guess, i|
-      # puts "guess == temp_code[i] #{guess == temp_code[i]}"
       if temp_code.include?(guess) 
-        # temp_code.delete_at(temp_code.index(guess))
         temp_code[temp_code.index(guess)] = "-"
         @color_guess_number += 1
       end
@@ -110,8 +96,6 @@ class CodeMaker
 
     @color_guess_number = @color_guess_number - @perfect_guess_number
   end
-
-  # Integrate Code
 
   def code_cracked?
     @perfect_guess_number == 4

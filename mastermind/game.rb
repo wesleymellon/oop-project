@@ -86,4 +86,10 @@ end
 
 game1 = Game.new
 game1.run_game
-# game1.code_maker.comp_set_code
+
+
+
+
+
+
+

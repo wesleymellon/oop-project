@@ -1,3 +1,5 @@
+require "./comp_code_breaker_algorithm"
+
 class CodeBreaker
   attr_accessor :is_player, :guess_count, :current_guess
 
@@ -6,6 +8,7 @@ class CodeBreaker
     @guess_count = 0
     @current_guess = nil
     @possible_colors = ["red", "blue", "green", "black", "white", "yellow", "pink", "orange"]
+    @game_bot = Comp_Code_Breaker_Algo.new
   end
 
   def user_prompt(subject)
@@ -30,8 +33,6 @@ class CodeBreaker
       input_guess = gets.chomp.split(" ")
       guess_code(input_guess)
     end
-
-    #do we return something here? maybe @current_guess, or maybe we can just access it as an instance variable
   end
 
   def is_valid_guess?(input_guess)
@@ -45,7 +46,7 @@ class CodeBreaker
 
   def comp_guess(perfect_guess, correct_color_guess)
     #code here for computer to be smart about its guess
-    current_guess = ["black", "black", "black" , "black"]
+    current_guess = @game_bot.construct_guess
     guess_code(current_guess)
   end
 
